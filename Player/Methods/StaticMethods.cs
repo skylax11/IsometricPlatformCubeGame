@@ -11,7 +11,7 @@ public static class StaticMethods
         Vector3 vector3 = new Vector3(direction.x,0f,direction.y);
         TorqueForce = Mathf.Lerp(TorqueForce, TorqueForce + Time.deltaTime, Time.deltaTime * 10f);
         TorqueForce = Mathf.Clamp(TorqueForce, 5f, 8f);
-        theObject.GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(theObject.GetComponent<Rigidbody>().velocity,3.5f);
+        theObject.GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(theObject.GetComponent<Rigidbody>().velocity,4f);
         theObject.GetComponent<Rigidbody>().AddTorque(vector3*TorqueForce);
     }
     public static void Jump(Rigidbody theObject)

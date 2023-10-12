@@ -21,6 +21,13 @@ public class PlayerController : MonoBehaviour
         OnAir,
         OnGround
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            // Game over
+        }
+    }
     private void Awake()
     {
         if (instance == null)
