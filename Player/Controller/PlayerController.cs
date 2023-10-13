@@ -21,13 +21,6 @@ public class PlayerController : MonoBehaviour
         OnAir,
         OnGround
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.CompareTag("Enemy"))
-        {
-            // Game over
-        }
-    }
     private void Awake()
     {
         if (instance == null)
@@ -50,7 +43,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (PlayerState == State.Walking && groundState == GroundState.OnGround)
         {
-            Vector2 direction = PlayerInputManager.instance.direction;
+            Vector2 direction = PlayerInputManager.instance.Direction;
             StaticMethods.MakeMove(gameObject.transform, direction);
         }
         else if ((PlayerState == State.Jumping) && groundState == GroundState.OnGround)

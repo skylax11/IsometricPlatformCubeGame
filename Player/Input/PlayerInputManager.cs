@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerInputManager : MonoBehaviour
 {
     private PlayerController _controller;
-    public Vector2 direction;
+    private PlayerInteraction _interaction;
+
+    public Vector2 Direction;
     private bool _canDash = true;
     public static PlayerInputManager instance;
 
@@ -22,7 +24,11 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    private void Start() => _controller = GetComponent<PlayerController>();
+    private void Start()
+    {
+       _controller = GetComponent<PlayerController>();
+       _interaction = GetComponent<PlayerInteraction>();
+    }
     public void SetStatement(PlayerController.State state) => _controller.PlayerState = state;
 
     public void OnMove(InputValue val)
@@ -30,7 +36,7 @@ public class PlayerInputManager : MonoBehaviour
         if (!(val.Get<Vector2>() == Vector2.zero))
         {
             SetStatement(PlayerController.State.Walking);
-            direction = val.Get<Vector2>();
+            Direction = val.Get<Vector2>();
         }
         else
         {
@@ -52,6 +58,11 @@ public class PlayerInputManager : MonoBehaviour
     {
         if(_canDash) StaticMethods.Dash(GetComponent<Rigidbody>());
         StartCoroutine("DashCooldown",3f);
+    }
+    public void OnReset()
+    {
+
+        StaticMethods.Reset(transform, _interaction._camHolder, _interaction._checkPoint[_interaction._level], _interaction._camCheckPoint[_interaction._level]);
     }
     IEnumerator DashCooldown(float secs)
     {
